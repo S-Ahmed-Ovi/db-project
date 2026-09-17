@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "db-project"
+version = "0.3.0"
+description = "Standalone data-ingestion + database-connection manager: register per-project SQL/NoSQL sources (direct, SSH-tunnel, or VPN), validate and ingest CSV/Excel/JSON/Parquet/DataFrame data (replace/append/upsert), and inspect schemas — all with structured errors and secret-safe logging."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "S Ahmed Ovi", email = "shahabovi@gmail.com" },
+]
+keywords = ["database", "sql", "nosql", "etl", "pandas", "ssh-tunnel", "vpn", "data-validation", "data-ingestion"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Database",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "pandas>=2.0",
+    "sqlalchemy>=2.0",
+]
+
+[project.optional-dependencies]
+# File-format support
+files = ["openpyxl", "pyarrow"]
+
+# SQL drivers -- install only the dialects you actually connect to
+postgres = ["psycopg2-binary"]
+mysql = ["pymysql"]
+mssql = ["pyodbc"]
+
+# NoSQL
+mongo = ["pymongo"]
+
+# Secure Tunnel: SSH/Bastion access to bastion-only databases
+tunnel = ["sshtunnel", "paramiko"]
+
+# FastAPI test harness (main.py), not required to use the library itself
+api = ["fastapi", "uvicorn[standard]", "python-multipart"]
+
+# Everything above, for local dev / trying out every feature at once
+all = [
+    "db-project[files,postgres,mysql,mssql,mongo,tunnel,api]",
+]
+
+# Test tooling
+test = ["pytest", "pytest-cov"]
+
+[project.urls]
+Homepage = "https://github.com/S-Ahmed-Ovi/db-project"
+Repository = "https://github.com/S-Ahmed-Ovi/db-project"
+Issues = "https://github.com/S-Ahmed-Ovi/db-project/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+db_project = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
