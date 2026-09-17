@@ -52,20 +52,11 @@ host:port  +----+----+
 It has no dependency on any larger app or framework — import it into
 whatever you're building.
 
-> **Upgrading from 0.1.x?** Nothing you already call has changed — see
-> [`MIGRATION.md`](MIGRATION.md) for exactly what's new and what (nothing)
-> you need to change.
-
 ---
 
-## Install
 
-This package isn't required to be on PyPI to install it — you can install
-it straight from this folder (see `PACKAGING_GUIDE.md` if you've never built
-a Python package before and want the full walkthrough).
 
 ```bash
-# from inside this project's root folder (where pyproject.toml lives)
 pip install .
 ```
 
